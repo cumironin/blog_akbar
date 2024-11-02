@@ -1,0 +1,1 @@
+ALTER TABLE "auth_user" ADD COLUMN "image_url" varchar(255);

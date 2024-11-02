@@ -1,0 +1,137 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import {
+  fetchArticlesByCategory,
+  getUserAvatar,
+  fetchCategories,
+} from "../../lib/astroblog";
+
+// Get category from URL
+
+// Define types
+type Article = {
+  id: number;
+  title: string;
+  metatitle: string;
+  content: string;
+  image_url: string;
+  createdAt: Date;
+  publishedAt: Date;
+  author: string;
+  category: string;
+};
+
+type UserAvatar = {
+  username: string;
+  image_url: string;
+};
+
+const category = Astro.params.category?.toLowerCase();
+
+// Helper function to deduplicate and process articles
+const processArticles = (data: Article[]) => {
+  return Array.from(
+    new Map(data.map((article) => [article.id, article])).values()
+  );
+};
+
+// Fetch articles for the category
+let articles: Article[] = [];
+try {
+  const response = await fetchArticlesByCategory<{ data: Article[] }>({
+    category: category || "",
+  });
+
+  if (!response?.data?.length) {
+    // Try with capitalized first letter
+    const capitalizedCategory = category
+      ? category.charAt(0).toUpperCase() + category.slice(1)
+      : "";
+    const retryResponse = await fetchArticlesByCategory<{ data: Article[] }>({
+      category: capitalizedCategory,
+    });
+    if (retryResponse?.data) {
+      articles = processArticles(retryResponse.data);
+    }
+  } else {
+    articles = processArticles(response.data);
+  }
+} catch (error) {
+  console.error(`Error fetching articles for category ${category}:`, error);
+}
+
+// Fetch user avatars
+const userAvatarsResponse = await getUserAvatar<{ data: UserAvatar[] }>();
+const userAvatars = userAvatarsResponse?.data || [];
+
+// Helper function to get full image URL
+const getFullImageUrl = (imageUrl: string) => {
+  if (!imageUrl) return "";
+  if (imageUrl.startsWith("http")) return imageUrl;
+  return `${import.meta.env.BLOG_URL}${imageUrl}`;
+};
+
+// Helper function to get avatar URL
+const getUserAvatarUrl = (author: string) => {
+  const userAvatar = userAvatars.find((user) => user.username === author);
+  if (userAvatar?.image_url) {
+    return getFullImageUrl(userAvatar.image_url);
+  }
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=random`;
+};
+---
+
+<Layout title={`${category} News`}>
+  <main class="mx-10 px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8 capitalize">{category}</h1>
+
+    {/* Enhanced error messaging */}
+    {
+      articles.length === 0 && (
+        <div class="text-center py-8">
+          <p class="text-gray-600">
+            No articles found for the "{category}" category.
+          </p>
+          <p class="text-sm text-gray-500 mt-2">
+            Please check the category name or try again later.
+          </p>
+        </div>
+      )
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        articles.map((article) => (
+          <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="relative h-48">
+              <Image
+                src={getFullImageUrl(article.image_url)}
+                alt={article.title}
+                width={600}
+                height={400}
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h2 class="text-xl font-semibold mb-2">
+                <a href={`/blog/${article.id}`} class="hover:text-blue-600">
+                  {article.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4">{article.metatitle}</p>
+              <div class="flex items-center">
+                <img
+                  src={getUserAvatarUrl(article.author)}
+                  alt={article.author}
+                  class="w-8 h-8 rounded-full mr-2"
+                />
+                <span class="text-sm text-gray-500">{article.author}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+</Layout>

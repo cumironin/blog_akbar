@@ -1,0 +1,1 @@
+ALTER TABLE "permission" ALTER COLUMN "url_restrict" SET DATA TYPE text;

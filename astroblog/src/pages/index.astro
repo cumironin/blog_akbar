@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import {
+  TrendingUp,
+  Zap,
+  Music,
+  Coffee,
+  Clock,
+  ThumbsUp,
+  MessageSquare,
+  Film,
+} from "lucide-astro";
+import {
+  fetchApi,
+  fetchCategories,
+  fetchArticlesByCategory,
+} from "../lib/astroblog";
+import CategoryFilter from "../components/CategoryFilter";
+
+type Articles = {
+  id: number;
+  title: string;
+  metatitle: string;
+  slug: string;
+  content: string;
+  image_url: string;
+  createdAt: Date;
+  publishedAt: Date;
+  author: string;
+  category: string;
+};
+export interface Category {
+  id: number;
+  title: string;
+}
+
+const articlesBlog = await fetchApi<Articles[]>({
+  endpoint: "api/astroblog",
+});
+
+const categories = await fetchCategories<{ id: number; title: string }[]>();
+
+const videos = [...Array(4)].map((_, i) => ({
+  title: "Video Title Goes Here",
+  description: "Short description of the video content.",
+  image: `https://source.unsplash.com/random/320x180?sig=${i + 10}`,
+}));
+
+const getFullImageUrl = (imageUrl: string) => {
+  if (!imageUrl) return "";
+  if (imageUrl.startsWith("http")) return imageUrl;
+  return `${import.meta.env.BLOG_URL}${imageUrl}`;
+};
+---
+
+<Layout title="DiverseNews">
+  <main class="mx-10 px-4 py-8">
+    <section class="mb-12">
+      <!-- <h2 class="text-3xl font-bold mb-6">Top Stories</h2> -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="col-span-1 lg:col-span-2 overflow-hidden shadow-lg">
+          {
+            articlesBlog && articlesBlog[0] && (
+              <div class="relative h-full min-h-[500px]">
+                <Image
+                  src={getFullImageUrl(articlesBlog[0].image_url)}
+                  alt={articlesBlog[0].title}
+                  width={2070}
+                  height={1380}
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                  <span class="bg-red-500 text-white px-2 py-1 text-sm font-semibold mb-2 inline-block">
+                    {articlesBlog[0].category}
+                  </span>
+                  <a
+                    href={`/blog/${articlesBlog[0].id}`}
+                    class="block hover:opacity-75"
+                  >
+                    <h3 class="text-white text-3xl font-bold mb-2">
+                      {articlesBlog[0].title}
+                    </h3>
+                  </a>
+                  <p class="text-gray-200">{articlesBlog[0].metatitle}</p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+        <div class="col-span-1 space-y-6">
+          {
+            articlesBlog?.slice(1).map((post: Articles) => (
+              <div class="overflow-hidden shadow-lg">
+                <div class="relative h-48">
+                  <Image
+                    src={getFullImageUrl(post.image_url)}
+                    alt={post.title}
+                    width={600}
+                    height={400}
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                    <span class="bg-blue-500 text-white px-2 py-1 text-xs font-semibold mb-2 inline-block">
+                      {post.category}
+                    </span>
+                    <a href={`/blog/${post.id}`} class="block hover:opacity-75">
+                      <h3 class="text-white text-lg font-bold">{post.title}</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <CategoryFilter client:load />
+    </section>
+  </main>
+</Layout>

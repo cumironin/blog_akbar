@@ -1,0 +1,40 @@
+---
+export interface Props {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  tags: string[];
+  author: string;
+  date: string;
+}
+
+const { id, title, category, image, tags, author, date } = Astro.props;
+---
+
+<article class="bg-white shadow-md overflow-hidden">
+  <img src={image} alt={title} class="w-full h-48 object-cover" />
+  <div class="p-4">
+    <span class="inline-block bg-red-600 text-white text-xs px-2 py-1 mb-2"
+      >{category}</span
+    >
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">
+      <a href={`/article?id=${id}`} class="hover:text-red-600">{title}</a>
+    </h2>
+    <div class="text-sm text-gray-600 mb-3">
+      By {author} | {date}
+    </div>
+    <div class="mb-3 flex flex-wrap gap-2">
+      {
+        tags.map((tag) => (
+          <span class="bg-gray-200 text-gray-700 px-2 py-1 text-xs">{tag}</span>
+        ))
+      }
+    </div>
+    <a
+      href={`/article?id=${id}`}
+      class="text-red-600 hover:text-red-800 text-sm font-medium"
+      >Read More &rarr;</a
+    >
+  </div>
+</article>
