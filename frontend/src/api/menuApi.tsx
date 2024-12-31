@@ -103,7 +103,7 @@ export const useUpdateMenu = () => {
 
 			return response.json();
 		},
-		onSuccess: (data, variables) => {
+		onSuccess: (_data, variables) => {
 			queryClient.invalidateQueries({ queryKey: ["menus"] });
 			queryClient.invalidateQueries({ queryKey: ["menu", variables.id] });
 		},

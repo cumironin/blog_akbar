@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import type { User, Role } from "@/pages/users/types";
+import type { Role, User } from "@/pages/users/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -98,7 +98,7 @@ export const useUpdateUser = () => {
 
 			return response.json();
 		},
-		onSuccess: (data, variables) => {
+		onSuccess: (_data, _variables) => {
 			queryClient.invalidateQueries({ queryKey: ["users"] });
 			// queryClient.invalidateQueries({ queryKey: ["user", variables.id] });
 		},
@@ -172,7 +172,7 @@ export const useUpdateProfile = () => {
 
 			return response.json();
 		},
-		onSuccess: (data, variables) => {
+		onSuccess: (_data, variables) => {
 			queryClient.invalidateQueries({ queryKey: ["users"] });
 			queryClient.invalidateQueries({ queryKey: ["user", variables.id] });
 		},

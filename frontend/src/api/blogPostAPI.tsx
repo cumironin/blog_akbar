@@ -119,9 +119,9 @@ export const useCreateBlogPost = () => {
       }
       return response.json();
     },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
-    },
+    onSuccess: (_data) => {
+  queryClient.invalidateQueries({ queryKey: ["posts"] });
+},
     onError: (error: Error) => {
       console.error("Error creating blog post:", error);
     },
@@ -163,7 +163,8 @@ export const useEditBlogPost = () => {
       }
       return response.json();
     },
-    onSuccess: (data, variables) => {
+    
+    onSuccess: (variables) => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       queryClient.invalidateQueries({ queryKey: ["post", variables.id] });
     },

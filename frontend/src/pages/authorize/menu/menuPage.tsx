@@ -1,8 +1,8 @@
+import { useGetMenus } from "@/api/menuApi";
 import { useState } from "react";
-import SearchInput from "./SearchInput";
 import MenuTable from "./MenuTable";
 import NewMenuForm from "./NewMenuForm";
-import { useGetMenus } from "@/api/menuApi";
+import SearchInput from "./SearchInput";
 
 const MenuPage: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -12,15 +12,16 @@ const MenuPage: React.FC = () => {
 		name: "",
 		numsort: 0,
 		svg: "",
+		url_menu: "",
 	});
 
-	const { data: menus, isLoading, isError, error } = useGetMenus();
+	const { data: isLoading, isError, error } = useGetMenus();
 
 	const handleDialogOpenChange = (open: boolean) => {
 		setIsDialogOpen(open);
 		if (!open) {
 			setEditingMenuId(null);
-			setInitialMenuData({ name: "", numsort: 0, svg: "" });
+			setInitialMenuData({ name: "", numsort: 0, svg: "", url_menu: "" });
 		}
 	};
 

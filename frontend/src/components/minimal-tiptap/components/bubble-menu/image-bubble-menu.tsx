@@ -1,10 +1,10 @@
-import { useState } from "react";
-import type { Editor } from "@tiptap/react";
-import { BubbleMenu } from "@tiptap/react";
-import ImageSelector from "@/pages/post/showImage";
-import type { Image } from "@/pages/media/types";
 import { useGetImageBlog } from "@/api/blogPostAPI";
 import { Button } from "@/components/ui/button";
+import type { Image } from "@/pages/media/types";
+import ImageSelector from "@/pages/post/showImage";
+import type { Editor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react";
+import { useState } from "react";
 
 interface ImageBubbleMenuProps {
 	editor: Editor;
@@ -32,6 +32,7 @@ export const ImageBubbleMenu: React.FC<ImageBubbleMenuProps> = ({ editor }) => {
 			<ImageSelector
 				onImageSelect={handleImageSelect}
 				isOpen={isImageSelectorOpen}
+				onFileUpload={async () => {}}
 				onOpenChange={setIsImageSelectorOpen}
 				initialSelectedImage={null}
 				images={imageData}

@@ -1,5 +1,5 @@
 import { useGetRoleUserPermission } from "@/api/permissionApi";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 interface Permission {
 	roleId: string;

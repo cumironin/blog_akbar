@@ -1,8 +1,8 @@
 import { Editor, Element as SlateElement, Transforms } from "slate";
 import type {
+	BlockType,
 	CustomEditor,
 	CustomElement,
-	BlockType,
 	MarkFormat,
 } from "../types/slate";
 
@@ -11,7 +11,8 @@ export const toggleBlock = (editor: CustomEditor, format: BlockType) => {
 	const isList = ["numbered-list", "bulleted-list"].includes(format);
 
 	Transforms.unwrapNodes(editor, {
-		match: (n) =>
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		match: (n: any) =>
 			!Editor.isEditor(n) &&
 			SlateElement.isElement(n) &&
 			["numbered-list", "bulleted-list"].includes(n.type as BlockType),
