@@ -1,31 +1,25 @@
-# Build stage
-FROM node:20-alpine as build
+FROM node:20-alpine
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml ./
 
-# Use npm install
-RUN npm install
+# Install dependencies
+RUN pnpm install
 
 # Copy source code
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm build
 
-# Production stage - just the static files
-FROM node:20-alpine
+EXPOSE 3000
 
-WORKDIR /app
-
-# Copy built assets
-COPY --from=build /app/dist /app/dist
-
-# Install serve
-RUN npm install -g serve
-
-EXPOSE 3001
+# Install serve globally
+RUN pnpm add -g serve
 
 CMD ["serve", "-s", "dist", "-l", "3001"]
