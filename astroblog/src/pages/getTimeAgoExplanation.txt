@@ -1,0 +1,24 @@
+The `getTimeAgo` function in the `astroblog/src/pages/search.astro` file is a utility function that calculates the time difference between the current date and a given date, and formats this difference as a human-readable string. Here's a detailed breakdown of the function:
+
+1. **Current Date**: The function starts by creating a new `Date` object, which represents the current date and time.
+
+2. **Date Difference**: It then calculates the difference in milliseconds between the current date and the given date (`new Date(date)`). This is done by subtracting the time value of the given date from the time value of the current date.
+
+3. **Days Difference**: The difference in milliseconds is converted to days by dividing it by the number of milliseconds in a day (1000 milliseconds * 60 seconds * 60 minutes * 24 hours).
+
+4. **Flooring**: The result of the division is floored (rounded down) using `Math.floor()`, as we are interested in the whole number of days.
+
+5. **String Formatting**: Finally, the function returns a string that represents the number of days as a human-readable phrase. It uses template literals to construct the string, which includes the number of days and the phrase "hari yang lalu" (which translates to "days ago" in Indonesian).
+
+Here's the function code for reference:
+
+```javascript
+const getTimeAgo = (date) => {
+  const now = new Date();
+  const diff = now.getTime() - new Date(date).getTime();
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return `${days} hari yang lalu`;
+};
+```
+
+This function is used in the Astro component to display how long ago each article was published, providing a more user-friendly representation of the publication date.

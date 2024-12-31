@@ -1,16 +1,16 @@
-import type React from "react";
-import { useState, useEffect } from "react";
-import type { Permission, Role } from "./types";
-import RoleDropdown from "./RoleDropdown";
-import FormPermission from "./FormPermission";
-import PermissionTable from "./PermissionTable";
-import PermissionPaging from "./PermissionPaging";
 import {
+	useDeletePermission,
 	useGetPermissions,
 	useUpdatePermission,
-	useDeletePermission,
 	// useGetPermission,
 } from "@/api/permissionApi";
+import type React from "react";
+import { useEffect, useState } from "react";
+import FormPermission from "./FormPermission";
+import PermissionPaging from "./PermissionPaging";
+import PermissionTable from "./PermissionTable";
+import RoleDropdown from "./RoleDropdown";
+import type { Permission, Role } from "./types";
 // import { Button } from "@/components/ui/button";
 
 const RolePermissionConnection: React.FC = () => {
