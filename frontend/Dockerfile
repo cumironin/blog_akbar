@@ -17,7 +17,7 @@ COPY . .
 # Build the application
 RUN pnpm build
 
-EXPOSE 3000
+EXPOSE 3001
 
 # Install serve globally
 RUN pnpm add -g serve
