@@ -20,6 +20,6 @@ RUN pnpm build
 EXPOSE 3001
 
 # Install serve globally
-RUN pnpm add -g serve
+# RUN pnpm add -g serve
 
 CMD ["serve", "-s", "dist", "-l", "3001"]
