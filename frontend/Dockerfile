@@ -22,4 +22,5 @@ RUN pnpm build
 
 EXPOSE 3001
 
-CMD ["serve", "-s", "dist", "-l", "3001"]
+# Use full path to serve executable
+CMD ["/usr/local/bin/serve", "-s", "dist", "-l", "3001"]
