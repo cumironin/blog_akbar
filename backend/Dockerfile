@@ -8,20 +8,19 @@ RUN npm install -g pnpm
 
 # Copy package files
 COPY package*.json ./
+COPY tsconfig.json ./
 
 # Install dependencies
 RUN pnpm install
 
 # Copy source code
-COPY . .
-
-# Debug: List files before build
-RUN ls -la
+COPY src/ ./src/
+COPY drizzle/ ./drizzle/
 
 # Run build
 RUN pnpm run build
 
-# Debug: List files after build to see output directory
+# Debug: List files in dist directory
 RUN ls -la dist/
 
 # Production stage
@@ -34,9 +33,10 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/drizzle /app/drizzle
 COPY package.json .
+COPY tsconfig.json .
 
 # Expose the port that matches your nginx conf
 EXPOSE 5000
 
-# Start the server (adjust the path based on your build output)
-CMD ["node", "dist/index.js"]
+# Start the server using the correct path
+CMD ["node", "--experimental-specifier-resolution=node", "dist/server.js"]
