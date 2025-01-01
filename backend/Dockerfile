@@ -7,7 +7,7 @@ RUN npm install -g pnpm
 
 # Copy package files and config
 COPY package*.json ./
-COPY tsconfig.json ./
+COPY tsconfig*.json ./
 
 # Install dependencies
 RUN pnpm install
@@ -19,4 +19,4 @@ COPY . .
 RUN pnpm run build
 
 # Start the server
-CMD ["node", "--experimental-specifier-resolution=node", "dist/server.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "--es-module-specifier-resolution=node", "dist/server.js"]
