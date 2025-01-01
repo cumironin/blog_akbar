@@ -8,6 +8,9 @@ WORKDIR /app
 # Copy package files
 COPY package*.json pnpm-lock.yaml ./
 
+# Add serve as a dependency
+RUN pnpm add serve
+
 # Install dependencies
 RUN pnpm install
 
@@ -19,5 +22,5 @@ RUN pnpm build
 
 EXPOSE 3001
 
-# Use npx to run serve
-CMD ["npx", "serve", "-s", "dist", "-l", "3001"]
+# Use serve from node_modules
+CMD ["./node_modules/.bin/serve", "-s", "dist", "-l", "3001"]
