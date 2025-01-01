@@ -19,4 +19,4 @@ COPY . .
 RUN pnpm run build
 
 # Start the server
-CMD ["node", "--experimental-specifier-resolution=node", "--es-module-specifier-resolution=node", "dist/server.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "--es-module-specifier-resolution=node", "dist/src/server.js"]
