@@ -1,21 +1,18 @@
+import { faker } from "@faker-js/faker";
+import dotenv from "dotenv";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
 import {
 	categoryTable,
 	imageTable,
-	postTable,
-	postOnCategoryTable,
-	userTable,
-	roleTable,
-	userToRoleTable,
-	roleToPermissionTable,
-	permissionTable,
 	menuTable,
-	subMenuTable,
-	roleToMenuTable,
+	permissionTable,
+	postOnCategoryTable,
+	postTable,
+	roleTable,
+	roleToPermissionTable,
+	userTable,
 } from "./schema";
-import { fa, faker } from "@faker-js/faker";
-import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env" });
 
@@ -48,7 +45,6 @@ const main = async () => {
 			slug: faker.lorem.slug(),
 			content: faker.lorem.paragraphs(10),
 			createdAt: faker.date.anytime(),
-			updatedAt: faker.date.anytime(),
 			authorId: faker.helpers.arrayElement(dataUser).id,
 		});
 	}
@@ -97,27 +93,8 @@ const main = async () => {
 		dataMenu.push({
 			id: faker.string.uuid(),
 			name: faker.lorem.words(),
-			urlRestrict: faker.internet.url(),
+			url_menu: faker.internet.url(),
 			svg: faker.image.dataUri({ type: "svg-base64" }),
-		});
-	}
-
-	const dataSubMenu: (typeof subMenuTable.$inferInsert)[] = [];
-	for (let i = 0; i < 4; i++) {
-		dataSubMenu.push({
-			id: faker.string.uuid(),
-			name: faker.lorem.words(),
-			urlRestrict: faker.internet.url(),
-			menuId: faker.helpers.arrayElement(dataMenu).id,
-		});
-	}
-
-	const dataRoleMenu: (typeof roleToMenuTable.$inferInsert)[] = [];
-	for (let i = 0; i < 20; i++) {
-		dataRoleMenu.push({
-			id: faker.string.uuid(),
-			roleId: faker.helpers.arrayElement(dataRole).id,
-			menuId: faker.helpers.arrayElement(dataMenu).id,
 		});
 	}
 
@@ -127,15 +104,6 @@ const main = async () => {
 			id: faker.string.uuid(),
 			roleId: faker.helpers.arrayElement(dataRole).id,
 			permissionId: faker.helpers.arrayElement(dataPermission).id,
-		});
-	}
-
-	const dataUserRole: (typeof userToRoleTable.$inferInsert)[] = [];
-	for (let i = 0; i < 20; i++) {
-		dataUserRole.push({
-			id: faker.string.uuid(),
-			roleId: faker.helpers.arrayElement(dataRole).id,
-			userId: faker.helpers.arrayElement(dataUser).id,
 		});
 	}
 
@@ -156,12 +124,8 @@ const main = async () => {
 	await db.insert(roleTable).values(dataRole);
 	await db.insert(permissionTable).values(dataPermission);
 	await db.insert(menuTable).values(dataMenu);
-	await db.insert(subMenuTable).values(dataSubMenu);
-	await db.insert(userToRoleTable).values(dataUserRole);
 	await db.insert(roleToPermissionTable).values(dataRolePermission);
-	await db.insert(roleToMenuTable).values(dataRoleMenu);
 	await db.insert(postOnCategoryTable).values(dataPostCategory);
-
 	console.log("Seed done");
 };
 
