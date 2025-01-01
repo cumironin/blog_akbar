@@ -3,17 +3,20 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install
 
 # Copy source files
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm run build
 
 # Serve stage
 FROM node:20-alpine

@@ -3,20 +3,23 @@ FROM node:20-alpine as builder
 
 WORKDIR /app
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install
 
 # Copy source code
 COPY . .
 
 # Debug: show available scripts
-RUN npm run
+# RUN pnpm run
 
 # Run build
-RUN npm run build
+RUN pnpm run build
 
 # Production stage
 FROM node:20-alpine

@@ -9,7 +9,7 @@
 		"migration:generate": "drizzle-kit generate",
 		"migration:push": "drizzle-kit push",
 		"seed": "tsx ./src/db/seed.ts",
-		"build": "npm install && npm exec tsc",
+		"build": "pnpm install && pnpm exec tsc",
 		"test": "vitest"
 	},
 	"keywords": [],
