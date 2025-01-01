@@ -1,19 +1,24 @@
 # Dockerfile
-FROM node:20.18.1-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy source code
 COPY . .
+
+# Build the application
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 3001
 
-# Install serve package globally
-RUN npm install -g serve
+# Start with node using a simple static server
+RUN npm install -g http-server
 
-# Use serve to run the production build
-CMD ["serve", "-s", "build", "-l", "3001"]
+# Use http-server instead of serve
+CMD ["http-server", "dist", "-p", "3001", "--cors"]
