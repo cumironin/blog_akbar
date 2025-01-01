@@ -35,8 +35,8 @@ services:
     container_name: astroblog
     environment:
       - BLOG_URL=http://backend:5000
-      - HOST=0.0.0.0  # Add this line
-      - PORT=3000     # Add this line
+      # - HOST=0.0.0.0  # Add this line
+      # - PORT=3000     # Add this line
     depends_on:
       - backend
     networks:

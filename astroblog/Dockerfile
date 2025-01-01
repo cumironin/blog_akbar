@@ -35,5 +35,4 @@ EXPOSE 3000
 # ENV HOST=0.0.0.0
 
 # Start the server
-# CMD ["node", "./dist/server/entry.mjs"]
-CMD ["sh", "-c", "HOST=${HOST:-0.0.0.0} PORT=${PORT:-3000} node ./dist/server/entry.mjs"]
+CMD ["node", "./dist/server/entry.mjs"]

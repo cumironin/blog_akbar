@@ -14,7 +14,7 @@ export default defineConfig({
 	integrations: [tailwind(), icon(), react()],
 
 	server: {
-		host: "0.0.0.0",
+		host: true,
 		port: 3000,
 	},
 
