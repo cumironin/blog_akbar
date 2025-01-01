@@ -14,7 +14,7 @@ COPY . .
 
 # Run migrations and build
 # RUN npm run migration:generate && \
-#     npm run build
+  RUN npm run build
 
 # Production stage
 FROM node:20-alpine
