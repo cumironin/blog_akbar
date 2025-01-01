@@ -31,5 +31,8 @@ COPY package.json .
 # Expose the port that matches your Astro config and nginx conf
 EXPOSE 3000
 
+# Start the server with HOST environment variable
+ENV HOST=0.0.0.0
+
 # Start the server
 CMD ["node", "./dist/server/entry.mjs"]
