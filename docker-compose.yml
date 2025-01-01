@@ -50,6 +50,8 @@ services:
       - backend
       - frontend
       - astroblog
+    networks:
+      - app_network
 
   db:
     image: postgres:16-alpine
