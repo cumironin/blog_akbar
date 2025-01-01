@@ -1,23 +1,34 @@
-# Use the latest LTS Node.js Alpine image as a base
-FROM node:20-alpine
+# Build stage
+FROM node:20-alpine as builder
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
-# Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package files
-COPY package*.json pnpm-lock.yaml ./
+COPY package*.json ./
 
 # Install dependencies
-RUN pnpm install
+RUN npm install
 
 # Copy source code
 COPY . .
 
-# Expose the port the app runs on
+# Run migrations and build
+RUN npm run migration:generate && \
+    npm run build
+
+# Production stage
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy built assets and dependencies from builder
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/drizzle /app/drizzle
+COPY package.json .
+
+# Expose the port that matches your nginx conf
 EXPOSE 5000
 
-# Use pnpm to start the application
-CMD ["pnpm", "start"]
+# Start the server
+CMD ["node", "dist/server.js"]
