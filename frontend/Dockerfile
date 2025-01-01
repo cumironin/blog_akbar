@@ -1,6 +1,7 @@
 # Build stage
-FROM node:20-alpine as builder
+FROM node:20-alpine as build
 
+# Set working directory
 WORKDIR /app
 
 # Copy package files
@@ -9,24 +10,26 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy source code
+# Copy all files
 COPY . .
 
 # Build the application
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Development server stage
+FROM node:20-alpine
 
-# Copy nginx configuration
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy built assets from builder
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy package files and built assets
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/dist ./dist
 
-# Expose port 3001 to match the nginx configuration
+# Install only production dependencies
+RUN npm install -g serve
+
+# Expose port 3001 (matching the port in main nginx config)
 EXPOSE 3001
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the server
+CMD ["serve", "-s", "dist", "-l", "3001"]
