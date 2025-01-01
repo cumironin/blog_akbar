@@ -7,7 +7,9 @@ RUN npm install -g pnpm
 
 # Copy package files and config
 COPY package*.json ./
-COPY tsconfig*.json ./
+# COPY tsconfig*.json ./
+COPY tsconfig.build.json ./
+
 
 # Install dependencies
 RUN pnpm install
