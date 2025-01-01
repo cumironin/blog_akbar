@@ -9,7 +9,7 @@
 		"migration:generate": "drizzle-kit generate",
 		"migration:push": "drizzle-kit push",
 		"seed": "tsx ./src/db/seed.ts",
-		"build": "tsc",
+		"build": "tsc -p tsconfig.build.json",
 		"test": "vitest"
 	},
 	"keywords": [],
