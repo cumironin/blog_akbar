@@ -1,26 +1,19 @@
-FROM node:20-alpine
-
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Dockerfile
+FROM node:20.18.1-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json pnpm-lock.yaml ./
+COPY package*.json ./
 
-# Add serve as a dependency
-RUN pnpm add serve
+RUN npm install
 
-# Install dependencies
-RUN pnpm install
-
-# Copy source code
 COPY . .
+RUN npm run build
 
-# Build the application
-RUN pnpm build
+EXPOSE 3000
 
-EXPOSE 3001
+# Install serve package globally
+RUN npm install -g serve
 
-# Use serve from node_modules
-CMD ["./node_modules/.bin/serve", "-s", "dist", "-l", "3001"]
+# Use serve to run the production build
+CMD ["serve", "-s", "build", "-l", "3001"]
