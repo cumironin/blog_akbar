@@ -15,11 +15,14 @@ RUN pnpm install
 # Copy source code
 COPY . .
 
-# Debug: show available scripts
-# RUN pnpm run
+# Debug: List files before build
+RUN ls -la
 
 # Run build
 RUN pnpm run build
+
+# Debug: List files after build to see output directory
+RUN ls -la dist/
 
 # Production stage
 FROM node:20-alpine
@@ -35,5 +38,5 @@ COPY package.json .
 # Expose the port that matches your nginx conf
 EXPOSE 5000
 
-# Start the server
-CMD ["node", "dist/server.js"]
+# Start the server (adjust the path based on your build output)
+CMD ["node", "dist/index.js"]
