@@ -1,6 +1,6 @@
-import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
-import routes from "./routes";
+import express, { NextFunction, Request, Response } from "express";
+import routes from "./routes/index.js";
 
 dotenv.config();
 

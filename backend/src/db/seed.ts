@@ -12,7 +12,7 @@ import {
 	roleTable,
 	roleToPermissionTable,
 	userTable,
-} from "./schema";
+} from "./schema.js";
 
 dotenv.config({ path: "./.env" });
 

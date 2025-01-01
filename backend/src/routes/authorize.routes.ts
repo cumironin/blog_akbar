@@ -1,6 +1,6 @@
 import { Router } from "express";
 import type { NextFunction, Request, Response } from "express";
-import AuthorizeController from "../controller/AuthorizeController";
+import AuthorizeController from "../controller/AuthorizeController.js";
 
 const router = Router();
 

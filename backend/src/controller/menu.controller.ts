@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import type { Request, Response } from "express";
-import { db } from "../db/db";
-import { menuTable } from "../db/schema";
+import { db } from "../db/db.js";
+import { menuTable } from "../db/schema.js";
 
 export const getMenus = async (req: Request, res: Response) => {
 	try {

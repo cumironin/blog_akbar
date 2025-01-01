@@ -2,9 +2,9 @@ import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm"; // Import the eq function
 import type { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "../db/db";
-import { key, session, userTable } from "../db/schema";
-import { hashPassword } from "../utils/hash";
+import { db } from "../db/db.js";
+import { key, session, userTable } from "../db/schema.js";
+import { hashPassword } from "../utils/hash.js";
 
 const registerUser = async (req: Request, res: Response) => {
 	const { username, email, name, password } = req.body;

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import MenuController from "../controller/menu.controller";
-import menuController from "../controller/menu.controller";
+import MenuController from "../controller/menu.controller.js";
+import menuController from "../controller/menu.controller.js";
 
 const router = Router();
 

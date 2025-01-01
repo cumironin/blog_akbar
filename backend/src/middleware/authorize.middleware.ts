@@ -2,13 +2,13 @@
 
 import { eq } from "drizzle-orm";
 import type { NextFunction, Request, Response } from "express";
-import { db } from "../db/db";
+import { db } from "../db/db.js";
 import {
 	permissionTable,
 	roleToPermissionTable,
 	session,
 	userTable,
-} from "../db/schema";
+} from "../db/schema.js";
 
 // Extend the Request interface to include a user property
 export interface AuthenticatedRequest extends Request {

@@ -1,12 +1,12 @@
+import { and, eq, like, ne, or, sql } from "drizzle-orm";
 import type { Request, Response } from "express";
-import { db } from "../db/db";
-import { eq, ne, and, or, like, sql } from "drizzle-orm";
+import { db } from "../db/db.js";
 import {
 	categoryTable,
 	postOnCategoryTable,
 	postTable,
 	userTable,
-} from "../db/schema";
+} from "../db/schema.js";
 
 export const getAstroBlog = async (req: Request, res: Response) => {
 	try {

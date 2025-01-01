@@ -1,7 +1,7 @@
-import type { NextFunction, Request, Response } from "express";
-import { db } from "../db/db";
-import { roleTable } from "../db/schema";
 import { eq } from "drizzle-orm";
+import type { NextFunction, Request, Response } from "express";
+import { db } from "../db/db.js";
+import { roleTable } from "../db/schema.js";
 
 const getRole = async (req: Request, res: Response) => {
 	const roles = await db

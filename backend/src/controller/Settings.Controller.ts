@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
-import { db } from "../db/db";
-import { settingsTable } from "../db/schema";
 import { eq } from "drizzle-orm";
+import type { Request, Response } from "express";
+import { db } from "../db/db.js";
+import { settingsTable } from "../db/schema.js";
 
 const getSettings = async (req: Request, res: Response) => {
 	try {

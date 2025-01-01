@@ -2,8 +2,8 @@ import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import type { NextFunction, Request, Response } from "express";
 // import { showCategory } from "../services/category.service";
-import { db } from "../db/db";
-import { categoryTable } from "../db/schema";
+import { db } from "../db/db.js";
+import { categoryTable } from "../db/schema.js";
 
 export const getCategory = async (req: Request, res: Response) => {
 	try {

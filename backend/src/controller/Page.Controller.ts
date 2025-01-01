@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
-import { db } from "../db/db";
-import { pageTable, userTable } from "../db/schema";
 import { eq, inArray } from "drizzle-orm";
+import type { Request, Response } from "express";
+import { db } from "../db/db.js";
+import { pageTable, userTable } from "../db/schema.js";
 
 const getPages = async (req: Request, res: Response) => {
 	try {

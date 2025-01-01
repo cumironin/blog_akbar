@@ -1,15 +1,15 @@
 import { and, eq } from "drizzle-orm";
 import type { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "../db/db";
+import { db } from "../db/db.js";
 import {
 	menuTable,
 	permissionTable,
 	roleToPermissionTable,
 	session,
 	userTable,
-} from "../db/schema";
-import { roleTable } from "../db/schema";
+} from "../db/schema.js";
+import { roleTable } from "../db/schema.js";
 
 const addPermission = async (req: Request, res: Response) => {
 	try {

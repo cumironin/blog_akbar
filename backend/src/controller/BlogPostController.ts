@@ -1,14 +1,14 @@
-import { response, type Request, type Response } from "express";
-import { db } from "../db/db";
+import { eq, inArray } from "drizzle-orm";
+import { type Request, type Response, response } from "express";
+import { array } from "zod";
+import { db } from "../db/db.js";
 import {
 	categoryTable,
 	imageTable,
+	postOnCategoryTable,
 	postTable,
 	userTable,
-	postOnCategoryTable,
-} from "../db/schema";
-import { eq, inArray } from "drizzle-orm";
-import { array } from "zod";
+} from "../db/schema.js";
 
 const getCategoryBlog = async (req: Request, res: Response) => {
 	try {

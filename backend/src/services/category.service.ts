@@ -1,5 +1,5 @@
-import { db } from "../db/db";
-import { categoryTable } from "../db/schema";
+import { db } from "../db/db.js";
+import { categoryTable } from "../db/schema.js";
 
 export const showCategory = async () => {
 	// const allCategories = await db.select().from(categoryTable);

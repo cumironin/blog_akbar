@@ -1,6 +1,6 @@
 import { Router } from "express";
 import type { NextFunction, Request, Response } from "express";
-import SettingsController from "../controller/Settings.Controller";
+import SettingsController from "../controller/Settings.Controller.js";
 
 const router = Router();
 

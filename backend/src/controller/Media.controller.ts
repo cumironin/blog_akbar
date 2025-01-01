@@ -1,14 +1,14 @@
-// Import necessary modules and dependencies
-import type { Request, Response } from "express";
-import { db } from "../db/db";
-import { imageTable } from "../db/schema";
-import { v4 as uuidv4 } from "uuid";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 // Import eq from drizzle-orm for database operations
 import { eq } from "drizzle-orm";
+// Import necessary modules and dependencies
+import type { Request, Response } from "express";
+import { v4 as uuidv4 } from "uuid";
+import { db } from "../db/db.js";
+import { imageTable } from "../db/schema.js";
 
 // Use process.cwd() as __dirname equivalent
 const __dirname = process.cwd();

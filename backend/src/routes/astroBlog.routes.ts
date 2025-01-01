@@ -1,15 +1,15 @@
 import express from "express";
 import {
+	getAllAstroBlog,
 	getAstroBlog,
+	getAstroBlogByCategory,
 	getAstroBlogById,
+	getCategories,
 	getRelatedAstroBlog,
 	getTrendingAstroBlog,
-	getAstroBlogByCategory,
-	getCategories,
-	getAllAstroBlog,
 	getUserAvatar,
 	searchArticles,
-} from "../controller/AstroBlog.Controller";
+} from "../controller/AstroBlog.Controller.js";
 
 const router = express.Router();
 

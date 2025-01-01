@@ -2,10 +2,10 @@ import express from "express";
 import multer from "multer";
 import {
 	deleteMedia,
+	editMediaDescription,
 	getMediaList,
 	uploadMedia,
-	editMediaDescription,
-} from "../controller/Media.controller";
+} from "../controller/Media.controller.js";
 
 const router = express.Router();
 

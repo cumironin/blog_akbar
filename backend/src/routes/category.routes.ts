@@ -1,6 +1,6 @@
 import { Router } from "express";
 import type { NextFunction, Request, Response } from "express";
-import CategoryController from "../controller/CategoryController";
+import CategoryController from "../controller/CategoryController.js";
 // import authorizeMiddleware from "../middleware/authorize.middleware";
 
 const router = Router();

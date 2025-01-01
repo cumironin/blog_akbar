@@ -1,19 +1,19 @@
 import type { Express } from "express";
-import BlogPostRoute from "./BlogPost.routes";
-import AuthRoute from "./auth.routes";
-import AuthorizePermission from "./authorize.routes";
-import CategoryRoute from "./category.routes";
-import DashboardRoute from "./dashboard.routes";
-import MediaRoute from "./media.routes";
-import MenuRoute from "./menu.routes";
-import Page from "./page.routes";
-import PermissionRoute from "./permission.routes";
-import Settings from "./settings.routes";
-import Users from "./users.routes";
-import AstroBlogRoute from "./astroBlog.routes";
+import BlogPostRoute from "./BlogPost.routes.js";
+import AstroBlogRoute from "./astroBlog.routes.js";
+import AuthRoute from "./auth.routes.js";
+import AuthorizePermission from "./authorize.routes.js";
+import CategoryRoute from "./category.routes.js";
+import DashboardRoute from "./dashboard.routes.js";
+import MediaRoute from "./media.routes.js";
+import MenuRoute from "./menu.routes.js";
+import Page from "./page.routes.js";
+import PermissionRoute from "./permission.routes.js";
+import Settings from "./settings.routes.js";
+import Users from "./users.routes.js";
 
 import cookieParser from "cookie-parser";
-import authorizeMiddleware from "../middleware/authorize.middleware";
+import authorizeMiddleware from "../middleware/authorize.middleware.js";
 
 import path from "node:path";
 import cors from "cors";
