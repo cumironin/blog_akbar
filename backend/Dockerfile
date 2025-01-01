@@ -12,7 +12,10 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Run migrations and build
+# Debug: show available scripts
+RUN npm run
+
+# Run build
 RUN npm run build
 
 # Production stage
