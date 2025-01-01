@@ -15,18 +15,18 @@ COPY drizzle.config.ts ./
 RUN pnpm install
 
 # Copy all source code
-COPY src/ ./src/
-COPY drizzle/ ./drizzle/
+COPY . .
 
-# Debug: Show contents before build
-RUN echo "Contents before build:" && ls -la
+# Debug: Show structure before build
+RUN echo "=== Directory structure before build ===" && \
+    ls -R
 
 # Run build
 RUN pnpm run build
 
-# Debug: Show contents after build
-RUN echo "Contents after build:" && ls -la
-RUN echo "Contents of dist directory:" && ls -la dist/
+# Debug: Show structure after build
+RUN echo "=== Directory structure after build ===" && \
+    ls -R
 
 # Production stage
 FROM node:20-alpine
@@ -39,14 +39,17 @@ COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/drizzle /app/drizzle
 COPY package.json .
 COPY tsconfig.json .
-COPY drizzle.config.ts .
 
-# Debug: Show contents in production
-RUN echo "Contents in production:" && ls -la
-RUN echo "Contents of dist in production:" && ls -la dist/
+# Debug: Show final structure
+RUN echo "=== Final directory structure ===" && \
+    ls -R
 
 # Expose the port that matches your nginx conf
 EXPOSE 5000
 
+# Try both possible paths
+RUN echo "Checking for server.js files:" && \
+    find /app -name "server.js"
+
 # Start the server using the correct path
-CMD ["node", "--experimental-specifier-resolution=node", "dist/src/server.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "dist/server.js"]
