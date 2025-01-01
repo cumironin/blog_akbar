@@ -11,9 +11,6 @@ COPY package*.json pnpm-lock.yaml ./
 # Install dependencies
 RUN pnpm install
 
-# Install serve globally
-RUN npm install -g serve
-
 # Copy source code
 COPY . .
 
@@ -22,5 +19,5 @@ RUN pnpm build
 
 EXPOSE 3001
 
-# Use full path to serve executable
-CMD ["/usr/local/bin/serve", "-s", "dist", "-l", "3001"]
+# Use npx to run serve
+CMD ["npx", "serve", "-s", "dist", "-l", "3001"]
