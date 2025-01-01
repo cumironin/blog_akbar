@@ -11,19 +11,20 @@ import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), icon(), react()],
+	integrations: [tailwind(), icon(), react()],
 
-  server: {
-    port: 3000,
-  },
+	server: {
+		host: "0.0.0.0",
+		port: 3000,
+	},
 
-  output: "server",
+	output: "server",
 
-  vite: {
-    envPrefix: "BLOG_",
-  },
+	vite: {
+		envPrefix: "BLOG_",
+	},
 
-  adapter: node({
-    mode: "standalone",
-  }),
+	adapter: node({
+		mode: "standalone",
+	}),
 });
