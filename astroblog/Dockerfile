@@ -26,13 +26,17 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/package.json ./package.json
 
-# Set environment variables
-ENV HOST=0.0.0.0
-ENV PORT=3000
-ENV NODE_ENV=production
-
 # Expose the port
 EXPOSE 3000
 
-# Modified command to explicitly use the host
-CMD ["node", "./dist/server/entry.mjs", "--host", "0.0.0.0"]
+# Start the server
+ENV HOST="0.0.0.0"
+ENV PORT=3000
+ENV NODE_ENV=production
+
+# Create a start script
+RUN echo "#!/bin/sh\nnode ./dist/server/entry.mjs --host 0.0.0.0" > start.sh && \
+    chmod +x start.sh
+
+# Use the start script
+CMD ["./start.sh"]

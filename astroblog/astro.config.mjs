@@ -2,7 +2,6 @@ import node from "@astrojs/node";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
-// astro.config.mjs
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
@@ -10,18 +9,10 @@ export default defineConfig({
 	output: "server",
 	adapter: node({
 		mode: "standalone",
+		host: "0.0.0.0", // Add this
 	}),
-	server: {
-		host: true, // This is important for Docker
-		port: 3000,
-	},
+	// Remove the server config section since we're using the adapter
 	vite: {
 		envPrefix: "BLOG_",
-		server: {
-			host: true, // This is important for Docker
-			watch: {
-				usePolling: true,
-			},
-		},
 	},
 });
