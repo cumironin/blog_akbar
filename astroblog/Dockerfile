@@ -35,5 +35,5 @@ ENV NODE_ENV=production
 # Expose the port
 EXPOSE 3000
 
-# Start using our custom server
+# Remove wait-port and directly start the server
 CMD ["node", "server.js"]

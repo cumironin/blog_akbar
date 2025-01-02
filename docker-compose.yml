@@ -35,13 +35,10 @@ services:
       dockerfile: Dockerfile
     container_name: astroblog
     environment:
-      - BLOG_URL=http://backend:5000
+      - BLOG_API_URL=http://backend:5000/api
       - HOST=0.0.0.0
       - PORT=3000
       - NODE_ENV=production
-      - ASTRO_NODE_HOST=0.0.0.0
-    ports:
-      - "3000:3000"
     depends_on:
       - backend
     networks:
