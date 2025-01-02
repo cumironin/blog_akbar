@@ -1,6 +1,5 @@
 # Build stage
 FROM node:20-alpine as builder
-
 WORKDIR /app
 
 # Install pnpm
@@ -20,7 +19,6 @@ RUN pnpm run build
 
 # Production stage
 FROM node:20-alpine
-
 WORKDIR /app
 
 # Copy built assets from builder
@@ -36,5 +34,5 @@ ENV NODE_ENV=production
 # Expose the port
 EXPOSE 3000
 
-# Start using node directly with the built server
-CMD ["node", "./dist/server/entry.mjs"]
+# Modified command to explicitly use the host
+CMD ["node", "./dist/server/entry.mjs", "--host", "0.0.0.0"]

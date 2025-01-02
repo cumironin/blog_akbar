@@ -1,36 +1,27 @@
-// @ts-check
+import node from "@astrojs/node";
+import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
+// astro.config.mjs
 import { defineConfig } from "astro/config";
 
-import tailwind from "@astrojs/tailwind";
-
-import icon from "astro-icon";
-
-import react from "@astrojs/react";
-
-import node from "@astrojs/node";
-
-// https://astro.build/config
 export default defineConfig({
 	integrations: [tailwind(), icon(), react()],
-
 	output: "server",
-
+	adapter: node({
+		mode: "standalone",
+	}),
+	server: {
+		host: true, // This is important for Docker
+		port: 3000,
+	},
 	vite: {
 		envPrefix: "BLOG_",
 		server: {
-			host: "0.0.0.0",
+			host: true, // This is important for Docker
 			watch: {
 				usePolling: true,
 			},
 		},
 	},
-
-	server: {
-		host: "0.0.0.0",
-		port: 3000,
-	},
-
-	adapter: node({
-		mode: "standalone",
-	}),
 });
