@@ -13,15 +13,21 @@ import node from "@astrojs/node";
 export default defineConfig({
 	integrations: [tailwind(), icon(), react()],
 
-	server: {
-		host: "0.0.0.0",
-		port: 3000,
-	},
-
 	output: "server",
 
 	vite: {
 		envPrefix: "BLOG_",
+		server: {
+			host: "0.0.0.0",
+			watch: {
+				usePolling: true,
+			},
+		},
+	},
+
+	server: {
+		host: "0.0.0.0",
+		port: 3000,
 	},
 
 	adapter: node({

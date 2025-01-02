@@ -26,7 +26,7 @@ WORKDIR /app
 # Copy built assets from builder
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
-COPY package.json .
+COPY --from=builder /app/package.json ./package.json
 
 # Set environment variables
 ENV HOST=0.0.0.0
@@ -36,5 +36,5 @@ ENV NODE_ENV=production
 # Expose the port
 EXPOSE 3000
 
-# Start the server
-CMD ["node", "--env-file=.env", "./dist/server/entry.mjs"]
+# Start using node directly with the built server
+CMD ["node", "./dist/server/entry.mjs"]
