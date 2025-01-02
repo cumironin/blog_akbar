@@ -28,12 +28,13 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
 COPY package.json .
 
-# Expose the port that matches your Astro config and nginx conf
-EXPOSE 3000
-
-# Start the server with HOST environment variable
+# Set environment variables
 ENV HOST=0.0.0.0
 ENV PORT=3000
+ENV NODE_ENV=production
+
+# Expose the port
+EXPOSE 3000
 
 # Start the server
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["node", "--env-file=.env", "./dist/server/entry.mjs"]
