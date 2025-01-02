@@ -32,7 +32,8 @@ COPY package.json .
 EXPOSE 3000
 
 # Start the server with HOST environment variable
-# ENV HOST=0.0.0.0
+ENV HOST=0.0.0.0
+ENV PORT=3000
 
 # Start the server
 CMD ["node", "./dist/server/entry.mjs"]
