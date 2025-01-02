@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
-		"start": "astro dev",
+		"start": "node server.js",
 		"build": "astro check && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
@@ -20,6 +20,7 @@
 		"@types/react-dom": "^18.3.1",
 		"astro": "^5.1.1",
 		"astro-icon": "^1.1.1",
+		"express": "^4.21.2",
 		"lucide-astro": "^0.453.0",
 		"lucide-react": "^0.454.0",
 		"react": "^18.3.1",
