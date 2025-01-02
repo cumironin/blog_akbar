@@ -40,10 +40,13 @@ services:
       - PORT=3000
       - NODE_ENV=production
       - ASTRO_NODE_HOST=0.0.0.0
+    ports:
+      - "3000:3000"
     depends_on:
       - backend
     networks:
       - blog_network
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 10s
